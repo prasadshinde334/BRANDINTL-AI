@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cardio-Diabetic Brand Desk</title>
+<meta name="description" content="Top brands, available strengths, target specialists and a downloadable brand plan for cardio-diabetic molecules and FDCs in India.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="brandmark">
+        <svg width="34" height="20" viewBox="0 0 30 18" aria-hidden="true"><path d="M0 9h8l2.5-6 3.5 12 3.5-9 2.5 3h10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Cardio-Diabetic Brand Desk</span>
+      </div>
+      <h1>Read the market&rsquo;s pulse before you launch.</h1>
+      <p class="hero-lede">Search a cardio-diabetic molecule or combination. See who leads, which strengths they sell, which specialists to call on, and download a brand plan built from it.</p>
+      <form class="search" id="searchForm" role="search" autocomplete="off">
+        <label for="q" class="sr-only">Molecule, combination or brand</label>
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" type="text" list="molList" placeholder="Dapagliflozin, Telmisartan + Amlodipine, Glycomet-GP">
+        <datalist id="molList"></datalist>
+        <button type="submit" class="btn btn-primary">Explore market</button>
+      </form>
+      <div id="searchMsg" class="search-msg" role="status"></div>
+    </div>
+
+    <div class="monitor" aria-label="Data on this desk">
+      <div class="monitor-top">
+        <span class="live"><i></i>Brand Desk</span>
+        <span class="monitor-ver" id="monVer"></span>
+      </div>
+      <svg class="monitor-trace" viewBox="0 0 400 110" preserveAspectRatio="none" aria-hidden="true">
+        <g class="sweep">
+          <path class="trace" d="M0 70 H70 L80 70 L88 26 L98 104 L108 52 L116 70 H200 L210 70 L218 26 L228 104 L238 52 L246 70 H330 L340 70 L348 26 L358 104 L368 52 L376 70 H470 L480 70 L488 26 L498 104 L508 52 L516 70 H600 L610 70 L618 26 L628 104 L638 52 L646 70 H730 L740 70 L748 26 L758 104 L768 52 L776 70 H800"/>
+        </g>
+      </svg>
+      <div class="readouts">
+        <div class="readout r-red"><span>Molecules</span><b id="monMol">0</b></div>
+        <div class="readout r-blue"><span>Brands</span><b id="monBrands">0</b></div>
+        <div class="readout r-mint"><span>Therapy areas</span><b id="monAreas">3</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="shelf" id="shelf" aria-labelledby="shelfTitle">
+    <h2 id="shelfTitle" class="sr-only">Browse by therapy</h2>
+    <div class="shelf-groups" id="shelfGroups"></div>
+  </section>
+
+  <div id="results" class="results" hidden>
+    <aside class="dossier" id="molecule">
+      <p class="mol-class" id="molClass"></p>
+      <h2 class="mol-name" id="molName"></h2>
+      <p class="mol-status" id="molStatus"></p>
+      <div class="stats" id="molStats"></div>
+      <div class="mol-facts">
+        <div><h3>Indications</h3><ul class="pills" id="molInd"></ul></div>
+        <div><h3>Landmark evidence</h3><ul class="pills pills-evidence" id="molEvidence"></ul></div>
+      </div>
+      <button class="btn btn-accent btn-block" id="planTop" type="button">Build our brand plan</button>
+    </aside>
+
+    <div class="workspace">
+      <section class="panel" aria-labelledby="brandsTitle">
+        <div class="panel-head">
+          <h2 id="brandsTitle">Market landscape</h2>
+          <p class="panel-sub" id="brandsSub"></p>
+        </div>
+        <div id="revBlock" hidden>
+          <h3 class="block-title">Revenue by brand <span id="revPeriod"></span></h3>
+          <div class="bars" id="revBars"></div>
+          <h3 class="block-title">Share of tracked revenue</h3>
+          <div class="share" id="revShare"></div>
+          <div class="legend" id="revLegend"></div>
+        </div>
+        <h3 class="block-title">Who sells which strengths <span id="matrixUnit"></span></h3>
+        <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+        <div class="matrix-key" aria-hidden="true"><span><i class="tab tab-on"></i>Sells this strength</span><span><i class="tab tab-off"></i>Doesn&rsquo;t</span></div>
+        <div class="insight" id="gapInsight" role="status" aria-live="polite"></div>
+        <p class="data-note" id="dataNote" hidden></p>
+      </section>
+
+      <section class="panel" aria-labelledby="specTitle">
+        <div class="panel-head">
+          <h2 id="specTitle">Specialists to target</h2>
+          <p class="panel-sub">Field effort weighted by prescribing volume and clinical fit.</p>
+        </div>
+        <div class="share share-lg" id="specShare"></div>
+        <div class="spec-rows" id="specList"></div>
+      </section>
+
+      <section class="panel" id="plannerPanel" aria-labelledby="plannerTitle">
+        <div class="panel-head">
+          <h2 id="plannerTitle">Field-force planner</h2>
+          <p class="panel-sub">Move the sliders to see how many doctors your team can reach each month, split by the effort weights above.</p>
+        </div>
+        <div class="planner">
+          <div class="planner-controls">
+            <label class="slider">
+              <span class="slider-top"><span>Medical reps</span><output id="repsOut">25</output></span>
+              <input type="range" id="reps" min="5" max="200" step="5" value="25">
+            </label>
+            <label class="slider">
+              <span class="slider-top"><span>Calls per rep per day</span><output id="cpdOut">11</output></span>
+              <input type="range" id="cpd" min="6" max="16" step="1" value="11">
+            </label>
+            <p class="planner-note">22 working days a month. High-priority doctors get 2&ndash;3 calls a month, medium 1.</p>
+          </div>
+          <div class="planner-out">
+            <div class="big-read"><span>Calls a month</span><b id="pCalls">0</b></div>
+            <div class="big-read"><span>Doctors covered</span><b id="pDocs">0</b></div>
+          </div>
+        </div>
+        <div class="planner-rows" id="plannerRows"></div>
+      </section>
+
+      <section class="panel" id="timelinePanel" aria-labelledby="tlTitle">
+        <div class="panel-head">
+          <h2 id="tlTitle">Launch timeline</h2>
+          <p class="panel-sub">Press play to walk through the first 12 months, or drag the slider to a month.</p>
+        </div>
+        <div class="tl-controls">
+          <button class="play" id="tlPlay" type="button" aria-label="Play timeline">
+            <svg class="i-play" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>
+            <svg class="i-pause" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>
+          </button>
+          <input type="range" id="tlMonth" min="1" max="12" step="1" value="1" aria-label="Month">
+          <div class="tl-now"><b id="tlNow">Month 1</b><span id="tlPhase"></span></div>
+        </div>
+        <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
+        <p class="tl-active" id="tlActive" aria-live="polite"></p>
+      </section>
+
+      <section class="cta-band">
+        <svg class="cta-trace" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 66 H470 L480 66 L488 22 L498 78 L508 44 L516 66 H600"/></svg>
+        <div>
+          <h2>Turn this into a launch plan</h2>
+          <p>A five-page PDF with market charts, positioning, a 12-month timeline, KPIs and risks.</p>
+        </div>
+        <button class="btn btn-primary" id="planBottom" type="button">Build our brand plan</button>
+      </section>
+    </div>
+  </div>
+
+  <section class="data-panel" aria-labelledby="dataTitle">
+    <div>
+      <h2 id="dataTitle">Keep the market data current</h2>
+      <p>For your whole team, edit <code>assets/js/data.js</code> on GitHub and commit. To try new numbers in your own browser first, import a revenue CSV from AWACS, PharmaTrac or Pharmarack.</p>
+      <p class="data-stat" id="dataStat"></p>
+    </div>
+    <div class="data-actions">
+      <label class="btn btn-ghost" for="fileCsv">Import revenue CSV</label>
+      <input type="file" id="fileCsv" accept=".csv,text/csv" hidden>
+      <a class="btn btn-ghost" href="data/brand-revenue-template.csv" download>Download CSV template</a>
+      <button class="btn btn-ghost" id="resetData" type="button">Clear imported data</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Brand lists show established brands; add revenue from your licensed audit data. Brand plans are generated by rules from this data and are a starting draft for your team. Keep all promotion within UCPMP 2024.</p>
+</footer>
+
+<dialog class="modal" id="planModal" aria-labelledby="modalTitle">
+  <form method="dialog" class="modal-body" id="planForm">
+    <div class="modal-head">
+      <div>
+        <p class="modal-kicker" id="modalMolecule"></p>
+        <h2 id="modalTitle">Build our brand plan</h2>
+      </div>
+      <button class="icon-btn" value="cancel" formnovalidate aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="field">
+      <label for="fCompany">Your company</label>
+      <input id="fCompany" type="text" placeholder="e.g. Ahmedabad Lifesciences Pvt Ltd">
+    </div>
+
+    <div class="field">
+      <label for="fBrand">Our brand name</label>
+      <input id="fBrand" type="text" required>
+      <div class="suggest" id="nameIdeas" aria-label="Suggested names"></div>
+    </div>
+
+    <fieldset class="field">
+      <legend>Positioning angle</legend>
+      <div class="angles">
+        <label class="angle"><input type="radio" name="angle" value="clinical" checked><span><b>Evidence-led</b>Build on outcome trials and guidelines</span></label>
+        <label class="angle"><input type="radio" name="angle" value="adherence"><span><b>Adherence</b>Simple dosing and patient support</span></label>
+        <label class="angle"><input type="radio" name="angle" value="partnership"><span><b>Specialist partner</b>Deep KOL and clinic engagement</span></label>
+      </div>
+    </fieldset>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="fBench">Benchmark brand</label>
+        <select id="fBench"></select>
+      </div>
+      <div class="field">
+        <label for="fGeo">Launch geography</label>
+        <input id="fGeo" type="text" value="Pan-India">
+      </div>
+    </div>
+
+    <div class="preview" aria-live="polite">
+      <span>Your positioning, as it will read in the plan</span>
+      <p id="prevText"></p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" value="cancel" formnovalidate>Cancel</button>
+      <button class="btn btn-accent" id="makePdf" type="button">Download brand plan (PDF)</button>
+    </div>
+    <p class="modal-msg" id="modalMsg" role="status"></p>
+  </form>
+</dialog>
+
+<script src="assets/vendor/jspdf.umd.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/plan.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/interact.js"></script>
+</body>
+</html>
